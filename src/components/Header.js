@@ -9,10 +9,13 @@ import {
   InputRightElement,
   CloseButton,
 } from '@chakra-ui/react';
+import { useDisclosure } from '@chakra-ui/react';
 import { HamburgerIcon, SearchIcon } from '@chakra-ui/icons';
+import DrawerMenu from './DrawerMenu';
 
 const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleSearchToggle = () => {
     setIsSearchOpen(!isSearchOpen);
@@ -33,8 +36,9 @@ const Header = () => {
         mr={2}
         variant="ghost"
         fontSize="2xl"
-        // Add your onClick handler for the hamburger menu here
+        onClick={onOpen}
       />
+      <DrawerMenu isOpen={isOpen} onClose={onClose} />
       <Text fontSize="xl" fontWeight="bold">
         HEALING MENTOR
       </Text>
