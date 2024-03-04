@@ -3,6 +3,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ChakraProvider } from '@chakra-ui/react'
 import theme from './theme'
 import Home from './pages/Home';
+import Meditation from './pages/Meditation';
+import Groups from './pages/Groups';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -11,6 +14,9 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/meditation" element={<Meditation />} />
+            <Route path="/groups" element={<Groups />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </BrowserRouter>
       </ChakraProvider>

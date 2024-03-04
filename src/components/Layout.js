@@ -9,7 +9,7 @@ const Layout = ({ children }) => {
   return (
     <Flex direction="column" height="100vh">
       <Header />
-      <Spacer />
+      {children}
       <NavBar />
     </Flex>
   );

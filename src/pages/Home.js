@@ -1,16 +1,15 @@
 import React from "react";
 import Layout from "../components/Layout";
+import { Center } from "@chakra-ui/react";
 
 const Home = () => {
 
     return (
-        <>
         <Layout>
-            <p>
+            <Center w='100%' h='100%' bg='gray.100'>
                 Home!
-            </p>
+            </Center>
         </Layout>
-        </>
     );
 };
 

@@ -8,6 +8,7 @@ import {
   InputGroup,
   InputRightElement,
   CloseButton,
+  Spacer,
 } from '@chakra-ui/react';
 import { useDisclosure } from '@chakra-ui/react';
 import { HamburgerIcon, SearchIcon } from '@chakra-ui/icons';
@@ -42,6 +43,7 @@ const Header = () => {
       <Text fontSize="xl" fontWeight="bold">
         HEALING MENTOR
       </Text>
+      <Spacer />
       <InputGroup width={isSearchOpen ? '240px' : '0'}>
         <Input
           placeholder="Search..."
