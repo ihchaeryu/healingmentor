@@ -8,6 +8,8 @@ import Home from './pages/Home';
 import Meditation from './pages/Meditation';
 import Groups from './pages/Groups';
 import Profile from './pages/Profile';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
             <Route path="/meditation" element={<Meditation />} />
             <Route path="/groups" element={<Groups />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
           </Routes>
         </BrowserRouter>
       </ChakraProvider>

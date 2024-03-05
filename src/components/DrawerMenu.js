@@ -14,7 +14,8 @@ import {
     AccordionPanel,
     AccordionIcon,
   } from '@chakra-ui/react'
-import { Box, Flex, } from '@chakra-ui/react';
+import { Box, Flex, Link, Text, } from '@chakra-ui/react';
+import { Link as RouterLink } from 'react-router-dom';
 
 const DrawerMenu = ({ isOpen, onClose }) => {
     
@@ -30,7 +31,9 @@ const DrawerMenu = ({ isOpen, onClose }) => {
                         <h2>
                             <AccordionButton>
                                 <Box as="span" flex='1' textAlign='left'>
-                                    Home
+                                    <Link as={RouterLink} to='/'>
+                                        <Text>Home</Text>
+                                    </Link>
                                 </Box>
                             </AccordionButton>
                         </h2>
@@ -92,7 +95,9 @@ const DrawerMenu = ({ isOpen, onClose }) => {
                         <h2>
                             <AccordionButton>
                                 <Box as="span" flex='1' textAlign='left'>
-                                    Log In
+                                    <Link as={RouterLink} to='/login'>
+                                        <Text>Log In</Text>
+                                    </Link>
                                 </Box>
                             </AccordionButton>
                         </h2>
