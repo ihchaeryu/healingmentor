@@ -1,12 +1,16 @@
 import { React, useState } from "react";
 import { Flex, Text, Divider, Input, InputGroup, InputRightElement, Button, Spacer, Link, } from "@chakra-ui/react";
 import { ArrowBackIcon, } from "@chakra-ui/icons";
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
     // password handling
     const [pwShow, setPwShow] = useState(false)
     const handlePwShowClick = () => setPwShow(!pwShow)
+
+    // go back handling
+    const navigate = useNavigate();
 
     return (
         <Flex
@@ -20,7 +24,7 @@ const Login = () => {
             justifyContent='flex-start'
             gap={3}
             >
-                <ArrowBackIcon boxSize={6} />
+                <ArrowBackIcon boxSize={6} onClick={() => navigate(-1)} />
                 <Text fontSize='md' fontWeight='bold' alignSelf='center' >
                     Log In
                 </Text>
@@ -91,7 +95,10 @@ const Login = () => {
             >
                 <Link >
                     <Text fontSize='sm'>
-                        Don't have an account? Sign Up
+                        Don't have an account?{' '}
+                        <Link as={RouterLink} to='/signup' color='red' >
+                            Sign Up
+                        </Link>
                     </Text>
                 </Link>
             </Flex>
