@@ -10,7 +10,6 @@ const Home = () => {
         <Layout>
             <Flex 
             direction='column'
-            bg='gray.100'
             p={5}
             gap={3}
             >
@@ -26,7 +25,7 @@ const Home = () => {
                     <Image src={mainImage} alt='main entrance image' objectFit='cover' w='300px' h='200px' p={3} />
                 </Flex>
                 
-                <Divider orientation='horizontal' borderColor='gray.600' />
+                <Divider orientation='horizontal' borderColor='gray.400' />
 
                 <Flex
                 direction='column'

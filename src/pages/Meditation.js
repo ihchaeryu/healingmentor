@@ -9,7 +9,6 @@ const Meditation = () => {
         <Layout>
             <Flex 
             direction='column'
-            bg='gray.100'
             p={5}
             gap={3}
             >
