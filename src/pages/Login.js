@@ -56,7 +56,7 @@ const Login = () => {
                         <Input
                             pr='4.5rem'
                             type={pwShow ? 'text' : 'password'}
-                            placeholder='Enter password'
+                            placeholder='Password'
                         />
                         <InputRightElement width='4.5rem'>
                             <Button h='1.75rem' size='sm' onClick={handlePwShowClick}>
