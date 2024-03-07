@@ -10,6 +10,9 @@ import Groups from './pages/Groups';
 import Profile from './pages/Profile';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import GuidedMed from './pages/GuidedMed';
+import RespGraph from './pages/RespGraph';
+import SustAttention from './pages/SustAttention';
 
 function App() {
   return (
@@ -23,6 +26,9 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/meditation/gm" element={<GuidedMed />} />
+            <Route path="/meditation/rg" element={<RespGraph />} />
+            <Route path="/meditation/sa" element={<SustAttention />} />
           </Routes>
         </BrowserRouter>
       </ChakraProvider>
