@@ -9,16 +9,17 @@ import {
   InputRightElement,
   CloseButton,
   Spacer,
+  InputLeftElement,
 } from '@chakra-ui/react';
 import { useDisclosure } from '@chakra-ui/react';
-import { HamburgerIcon, SearchIcon } from '@chakra-ui/icons';
+import { CloseIcon, HamburgerIcon, SearchIcon } from '@chakra-ui/icons';
 import DrawerMenu from './DrawerMenu';
 
 const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const handleSearchToggle = () => {
+  const toggleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
   };
 
@@ -31,42 +32,54 @@ const Header = () => {
       p="4"
       color="white"
     >
-      <IconButton
-        icon={<HamburgerIcon />}
-        aria-label="Open Menu"
-        mr={2}
-        variant="ghost"
-        fontSize="2xl"
-        onClick={onOpen}
-      />
-      <DrawerMenu isOpen={isOpen} onClose={onClose} />
-      <Text fontSize="xl" fontWeight="bold">
-        HEALING MENTOR
-      </Text>
-      <Spacer />
-      <InputGroup width={isSearchOpen ? '240px' : '0'}>
-        <Input
-          placeholder="Search..."
-          display={isSearchOpen ? 'block' : 'none'}
+      { !isSearchOpen && (
+        <>
+        <IconButton
+          icon={<HamburgerIcon />}
+          aria-label="Open Menu"
+          mr={2}
+          variant="ghost"
+          fontSize="2xl"
+          onClick={onOpen}
         />
-        <InputRightElement>
-          {isSearchOpen ? (
-            <CloseButton
-              size="md"
-              onClick={handleSearchToggle}
-              aria-label="Close search"
-            />
-          ) : (
+        <DrawerMenu isOpen={isOpen} onClose={onClose} />
+        <Text fontSize="xl" fontWeight="bold">
+          HEALING MENTOR
+        </Text>
+        <Spacer />
+        </>
+      )}
+
+      { isSearchOpen && (
+        <InputGroup w="full">
+          <InputLeftElement>
             <IconButton
               icon={<SearchIcon />}
-              aria-label="Open Search"
-              variant="ghost"
-              fontSize="xl"
-              onClick={handleSearchToggle}
+              aria-label="Search"
+              variant='ghost'
+              // onClick={search}
             />
-          )}
-        </InputRightElement>
-      </InputGroup>
+          </InputLeftElement>
+          <Input placeholder="Search for anything" />
+          <InputRightElement>
+            <IconButton
+              icon={<CloseIcon />}
+              aria-label="Close search"
+              onClick={toggleSearch}
+              variant='ghost'
+            />
+          </InputRightElement>
+        </InputGroup>
+      )}
+
+      { !isSearchOpen && (
+        <IconButton
+          icon={<SearchIcon />}
+          aria-label="Open search"
+          onClick={toggleSearch}
+          variant='ghost'
+        />
+      )}
     </Flex>
   );
 };
