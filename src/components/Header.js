@@ -28,8 +28,7 @@ const Header = () => {
       as="header"
       align="center"
       justify="space-between"
-      bg="teal.500"
-      p="4"
+      p="3"
       color="white"
     >
       { !isSearchOpen && (
@@ -43,9 +42,14 @@ const Header = () => {
           onClick={onOpen}
         />
         <DrawerMenu isOpen={isOpen} onClose={onClose} />
-        <Text fontSize="xl" fontWeight="bold">
-          HEALING MENTOR
-        </Text>
+        <Flex direction='row' gap={1}>
+          <Text fontSize="xl" fontWeight="bold" color='black'>
+            HEALING
+          </Text>
+          <Text fontSize="xl" fontWeight="bold" color='darkorange'>
+            MENTOR
+          </Text>
+        </Flex>
         <Spacer />
         </>
       )}
@@ -74,7 +78,7 @@ const Header = () => {
 
       { !isSearchOpen && (
         <IconButton
-          icon={<SearchIcon />}
+          icon={<SearchIcon boxSize={5} />}
           aria-label="Open search"
           onClick={toggleSearch}
           variant='ghost'
