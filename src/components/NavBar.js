@@ -65,7 +65,7 @@ const NavBar = () => {
           <Flex direction='column' justifyContent='center' alignItems='center'>
             <Icon 
               as={
-                activeTab === '/meditation'
+                activeTab.includes('/meditation')
                 ? tabIcons['/meditation'].active
                 : tabIcons['/meditation'].nonActive
               } 
