@@ -2,7 +2,9 @@ import React from "react";
 import Layout from "../components/Layout";
 import { Flex, Text, Image, Spacer, Link, } from "@chakra-ui/react";
 import { Link as RouterLink } from 'react-router-dom';
-import mainImage from '../assets/healimg.jpeg'; // placeholder
+import gmImage from '../assets/guidedmed_img.png';
+import rgImage from '../assets/respgraph_img.png';
+import saImage from '../assets/sustatten_img.png'; 
 
 const Meditation = () => {
 
@@ -10,7 +12,7 @@ const Meditation = () => {
         <Layout>
             <Flex 
             direction='column'
-            p={5}
+            p={4}
             gap={3}
             >
                 <Link as={RouterLink} to='/meditation/gm'>
@@ -19,14 +21,14 @@ const Meditation = () => {
                     borderWidth={1}
                     borderColor='gray.400'
                     borderRadius={10}
-                    p={5}
+                    p={4}
                     alignItems='center'
                     >
                         <Text fontSize='lg' fontWeight='bold'>
                             Guided Meditation
                         </Text>
                         <Spacer />
-                        <Image src={mainImage} alt="guided meditation" w='120px' h='120px' objectFit='cover' />
+                        <Image src={gmImage} alt="guided meditation" w='120px' h='120px' objectFit='cover' />
                     </Flex>
                 </Link>
 
@@ -36,14 +38,14 @@ const Meditation = () => {
                     borderWidth={1}
                     borderColor='gray.400'
                     borderRadius={10}
-                    p={5}
+                    p={4}
                     alignItems='center'
                     >
                         <Text fontSize='lg' fontWeight='bold'>
                             Respiratory Graph
                         </Text>
                         <Spacer />
-                        <Image src={mainImage} alt="respiratory graph" w='120px' h='120px' objectFit='cover' />
+                        <Image src={rgImage} alt="respiratory graph" w='120px' h='120px' objectFit='cover' />
                     </Flex>
                 </Link>
 
@@ -53,14 +55,14 @@ const Meditation = () => {
                     borderWidth={1}
                     borderColor='gray.400'
                     borderRadius={10}
-                    p={5}
+                    p={4}
                     alignItems='center'
                     >
                         <Text fontSize='lg' fontWeight='bold'>
                             Sustained Attention
                         </Text>
                         <Spacer />
-                        <Image src={mainImage} alt="sustained attention" w='120px' h='120px' objectFit='cover' />
+                        <Image src={saImage} alt="sustained attention" w='120px' h='120px' objectFit='cover' />
                     </Flex>
                 </Link>
 

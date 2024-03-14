@@ -2,7 +2,7 @@ import React from "react";
 import Layout from "../components/Layout";
 import { Flex, Box, Text, Divider, Image } from "@chakra-ui/react";
 import SlickSlider from "../components/SlickSlider";
-import mainImage from '../assets/healimg.jpeg';
+import mainImage from '../assets/main_img.png';
 
 const Home = () => {
 
@@ -10,7 +10,7 @@ const Home = () => {
         <Layout>
             <Flex 
             direction='column'
-            p={5}
+            p={4}
             gap={3}
             >
                 <Flex
@@ -22,7 +22,7 @@ const Home = () => {
                     <Text fontSize='xl' fontWeight='bold' textAlign='center'>
                         Welcome to Healing Mentor!
                     </Text>
-                    <Image src={mainImage} alt='main entrance image' objectFit='cover' w='300px' h='200px' p={3} />
+                    <Image src={mainImage} alt='main entrance image' objectFit='contain' w='100vw' p={1} />
                 </Flex>
                 
                 <Divider orientation='horizontal' borderColor='gray.400' />

@@ -14,8 +14,10 @@ import {
     AccordionPanel,
     AccordionIcon,
   } from '@chakra-ui/react'
-import { Box, Flex, Link, Text, } from '@chakra-ui/react';
+import { Box, Flex, Link, Text, Image, Spacer, } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
+import defaultProfileImg from '../assets/profile_img.png';
+import { CloseIcon } from '@chakra-ui/icons';
 
 const DrawerMenu = ({ isOpen, onClose }) => {
     
@@ -24,7 +26,21 @@ const DrawerMenu = ({ isOpen, onClose }) => {
         <DrawerOverlay />
         <DrawerContent>
             <DrawerCloseButton />
-            <DrawerHeader borderBottomWidth='1px'>Login First</DrawerHeader>
+            <DrawerHeader borderBottomWidth='1px' bgColor='gray.800' paddingLeft={4}>
+                <Flex direction='row' justifyContent='left' alignItems='center' gap={4}>
+                    <Image 
+                    src={defaultProfileImg} 
+                    alt='default profile img' 
+                    w='45px' h='45px' 
+                    objectFit='cover' 
+                    bgColor='white' 
+                    borderRadius={8}
+                    />
+                    <Text color='white' fontSize='md' fontWeight='bold' >Login First</Text>
+                    <Spacer />
+                    <CloseIcon color='white' boxSize={4} />
+                </Flex>
+            </DrawerHeader>
             <DrawerBody>
                 <Accordion allowToggle>
                     <AccordionItem>
