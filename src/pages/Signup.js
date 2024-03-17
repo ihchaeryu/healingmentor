@@ -2,8 +2,28 @@ import { React, useState } from "react";
 import { Flex, Text, Divider, Input, InputGroup, InputRightElement, Button, Spacer, Link, } from "@chakra-ui/react";
 import { ArrowBackIcon, } from "@chakra-ui/icons";
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Signup = () => {
+
+    // input handling
+    const [inputId, setInputId] = useState('');
+    const [inputEmail, setInputEmail] = useState('');
+    const [inputPwd, setInputPwd] = useState('');
+    const [inputPwdConfirm, setInputPwdConfirm] = useState('');
+
+    const onChangeId = (e) => {
+        setInputId(e.target.value);
+    };
+    const onChangeEmail = (e) => {
+        setInputEmail(e.target.value);
+    };
+    const onChangePwd = (e) => {
+        setInputPwd(e.target.value);
+    };
+    const onChangePwdConfirm = (e) => {
+        setInputPwdConfirm(e.target.value);
+    };
 
     // password handling
     const [pwShow, setPwShow] = useState(false)
@@ -15,6 +35,23 @@ const Signup = () => {
 
     // go back handling
     const navigate = useNavigate();
+
+    // signup handling using proxy
+    const onConfirmSignup = () => {
+        axios({
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: '/user/auth/signup',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            data: { username: inputId, password: inputPwd },
+        }).then(res => {
+            console.log(res);
+        }).catch(err => {
+            console.log(err);
+        });
+    };
 
     return (
         <Flex
@@ -55,13 +92,23 @@ const Signup = () => {
                 direction='column'
                 gap={3}
                 >
-                    <Input placeholder='Username' />
-                    <Input placeholder='Email' />
+                    <Input 
+                    placeholder='Username' 
+                    value={inputId}
+                    onChange={onChangeId}
+                    />
+                    <Input 
+                    placeholder='Email' 
+                    value={inputEmail}
+                    onChange={onChangeEmail}
+                    />
                     <InputGroup size='md'>
                         <Input
                             pr='4.5rem'
                             type={pwShow ? 'text' : 'password'}
                             placeholder='Password'
+                            value={inputPwd}
+                            onChange={onChangePwd}
                         />
                         <InputRightElement width='4.5rem'>
                             <Button h='1.75rem' size='sm' onClick={handlePwShowClick}>
@@ -74,6 +121,8 @@ const Signup = () => {
                             pr='4.5rem'
                             type={pwConfirmShow ? 'text' : 'password'}
                             placeholder='Confirm password'
+                            value={inputPwdConfirm}
+                            onChange={onChangePwdConfirm}
                         />
                         <InputRightElement width='4.5rem'>
                             <Button h='1.75rem' size='sm' onClick={handlePwConfirmShowClick}>
@@ -87,7 +136,7 @@ const Signup = () => {
                 direction='column'
                 gap={5}
                 >
-                    <Button>
+                    <Button onClick={onConfirmSignup}>
                         REGISTER
                     </Button>
                 </Flex>
@@ -99,14 +148,12 @@ const Signup = () => {
             direction='row'
             justifyContent='center'
             >
-                <Link >
-                    <Text fontSize='sm'>
-                        Already have an account?{' '}
-                        <Link as={RouterLink} to='/login' color='red' >
-                            Log In
-                        </Link>
-                    </Text>
-                </Link>
+                <Text fontSize='sm'>
+                    Already have an account?{' '}
+                    <Link as={RouterLink} to='/login' color='red' >
+                        Log In
+                    </Link>
+                </Text>
             </Flex>
         </Flex>
     );
