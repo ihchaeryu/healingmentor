@@ -4,6 +4,7 @@ import { ArrowBackIcon, } from "@chakra-ui/icons";
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useToast } from '@chakra-ui/react'
+import { clear } from "@testing-library/user-event/dist/clear";
 
 const Signup = () => {
 
@@ -47,7 +48,7 @@ const Signup = () => {
 
     // pwd not matching toast
     const toast = useToast();
-    const showToast = () => {
+    const showPwdUnmatchToast = () => {
         toast({
             title: 'Password Confirmation',
             description: "The two password fields do not match.",
@@ -55,7 +56,17 @@ const Signup = () => {
             duration: 5000,
             isClosable: true,
         })
-    }
+    };
+    // signup failed toast
+    const showSignupFailToast = () => {
+        toast({
+            title: 'Sign Up Error',
+            description: "There has been an error. Please try again.",
+            status: 'error',
+            duration: 5000,
+            isClosable: true,
+        })
+    };
 
     // signup request handling using proxy
     // data doens't require email for now
@@ -63,15 +74,18 @@ const Signup = () => {
         axios({
             method: 'post',
             maxBodyLength: Infinity,
-            url: '/user/auth/signup',
+            url: '/api/v1/user/auth/signup',
             headers: {
                 'Content-type': 'application/json',
             },
             data: { username: inputId, password: inputPwd },
         }).then(res => {
             console.log(res);
+            navigate('/');
         }).catch(err => {
             console.log(err);
+            showSignupFailToast();
+            clearAllInputs();
         });
     };
 
@@ -82,7 +96,7 @@ const Signup = () => {
             onConfirmSignup();
         } else {
             clearAllInputs();
-            showToast();
+            showPwdUnmatchToast();
         }
     }
 

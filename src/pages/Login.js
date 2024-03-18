@@ -7,7 +7,7 @@ import axios from 'axios';
 const Login = () => {
 
     // api
-    const apiUrl = process.env.API_URL;
+    // const apiUrl = process.env.API_URL;
 
     // input handling
     const [inputId, setInputId] = useState('');
@@ -32,7 +32,7 @@ const Login = () => {
         axios({
             method: 'post',
             maxBodyLength: Infinity,
-            url: '/user/auth/login',
+            url: '/api/v1/user/auth/login',
             headers: {
                 'Content-type': 'application/json',
             },
