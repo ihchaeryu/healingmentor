@@ -4,7 +4,6 @@ import { ArrowBackIcon, } from "@chakra-ui/icons";
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useToast } from '@chakra-ui/react'
-import { clear } from "@testing-library/user-event/dist/clear";
 
 const Signup = () => {
 
@@ -81,7 +80,7 @@ const Signup = () => {
             data: { username: inputId, password: inputPwd },
         }).then(res => {
             console.log(res);
-            navigate('/');
+            navigate('/signup/success');
         }).catch(err => {
             console.log(err);
             showSignupFailToast();

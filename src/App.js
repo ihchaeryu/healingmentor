@@ -13,6 +13,7 @@ import Signup from './pages/Signup';
 import GuidedMed from './pages/GuidedMed';
 import RespGraph from './pages/RespGraph';
 import SustAttention from './pages/SustAttention';
+import SignupDone from './pages/SignupDone';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/signup/success" element={<SignupDone />} />
             <Route path="/meditation/gm" element={<GuidedMed />} />
             <Route path="/meditation/rg" element={<RespGraph />} />
             <Route path="/meditation/sa" element={<SustAttention />} />
