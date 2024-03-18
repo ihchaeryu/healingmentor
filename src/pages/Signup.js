@@ -3,6 +3,7 @@ import { Flex, Text, Divider, Input, InputGroup, InputRightElement, Button, Spac
 import { ArrowBackIcon, } from "@chakra-ui/icons";
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useToast } from '@chakra-ui/react'
 
 const Signup = () => {
 
@@ -25,18 +26,39 @@ const Signup = () => {
         setInputPwdConfirm(e.target.value);
     };
 
-    // password handling
+    // clear all inputs
+    const clearAllInputs = () => {
+        setInputId('');
+        setInputEmail('');
+        setInputPwd('');
+        setInputPwdConfirm('');
+    };
+
+    // password show handling
     const [pwShow, setPwShow] = useState(false)
     const handlePwShowClick = () => setPwShow(!pwShow)
 
-    // password confirm handling
+    // password confirm show handling
     const [pwConfirmShow, setPwConfirmShow] = useState(false)
     const handlePwConfirmShowClick = () => setPwConfirmShow(!pwConfirmShow)
 
     // go back handling
     const navigate = useNavigate();
 
-    // signup handling using proxy
+    // pwd not matching toast
+    const toast = useToast();
+    const showToast = () => {
+        toast({
+            title: 'Password Confirmation',
+            description: "The two password fields do not match.",
+            status: 'error',
+            duration: 5000,
+            isClosable: true,
+        })
+    }
+
+    // signup request handling using proxy
+    // data doens't require email for now
     const onConfirmSignup = () => {
         axios({
             method: 'post',
@@ -52,6 +74,17 @@ const Signup = () => {
             console.log(err);
         });
     };
+
+    // register button clicked
+    const tryRegister = () => {
+        // check pwd consistancy
+        if (inputPwd === inputPwdConfirm) {
+            onConfirmSignup();
+        } else {
+            clearAllInputs();
+            showToast();
+        }
+    }
 
     return (
         <Flex
@@ -136,7 +169,7 @@ const Signup = () => {
                 direction='column'
                 gap={5}
                 >
-                    <Button onClick={onConfirmSignup}>
+                    <Button onClick={tryRegister}>
                         REGISTER
                     </Button>
                 </Flex>
