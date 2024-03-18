@@ -1,9 +1,10 @@
-import { React, useState } from "react";
+import { React, useState, useContext, useEffect } from "react";
 import { Flex, Text, Divider, Input, InputGroup, InputRightElement, Button, Spacer, Link, } from "@chakra-ui/react";
 import { ArrowBackIcon, } from "@chakra-ui/icons";
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useToast } from '@chakra-ui/react'
+import UserContext from '../contexts/userContext';
 
 const Signup = () => {
 
@@ -67,6 +68,9 @@ const Signup = () => {
         })
     };
 
+    // Access user context
+    const { user, setUser } = useContext(UserContext);
+
     // signup request handling using proxy
     // data doens't require email for now
     const onConfirmSignup = () => {
@@ -80,6 +84,13 @@ const Signup = () => {
             data: { username: inputId, password: inputPwd },
         }).then(res => {
             console.log(res);
+            // set user context
+            setUser({
+                ...user,
+                username: res.data.user,
+                accessToken: res.data.token.access,
+                refreshToken: res.data.token.refresh
+            })
             navigate('/signup/success');
         }).catch(err => {
             console.log(err);
@@ -87,6 +98,11 @@ const Signup = () => {
             clearAllInputs();
         });
     };
+
+    // // Log user when it changes :: for debugging
+    // useEffect(() => {
+    //     console.log(user);
+    // }, [user]);
 
     // register button clicked
     const tryRegister = () => {
