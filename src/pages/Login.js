@@ -1,8 +1,10 @@
-import { React, useState } from "react";
+import { React, useState, useContext } from "react";
 import { Flex, Text, Divider, Input, InputGroup, InputRightElement, Button, Spacer, Link, } from "@chakra-ui/react";
 import { ArrowBackIcon, } from "@chakra-ui/icons";
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useToast } from '@chakra-ui/react'
 import axios from 'axios';
+import UserContext from '../contexts/userContext';
 
 const Login = () => {
 
@@ -24,8 +26,29 @@ const Login = () => {
     const [pwShow, setPwShow] = useState(false)
     const handlePwShowClick = () => setPwShow(!pwShow)
 
+    // clear all inputs
+    const clearAllInputs = () => {
+        setInputId('');
+        setInputPwd('');
+    };
+
     // go back handling
     const navigate = useNavigate();
+
+    const toast = useToast();
+    // login failed toast
+    const showLoginFailToast = () => {
+        toast({
+            title: 'Log In Failed',
+            description: "Log in has failed. Please try again.",
+            status: 'error',
+            duration: 5000,
+            isClosable: true,
+        })
+    };
+
+    // Access user context
+    const { user, setUser } = useContext(UserContext);
 
     // login handling using proxy
     const onConfirmLogin = () => {
@@ -39,8 +62,18 @@ const Login = () => {
             data: { username: inputId, password: inputPwd },
         }).then(res => {
             console.log(res);
+            // set user context
+            setUser({
+                ...user,
+                username: res.data.user,
+                accessToken: res.data.token.access,
+                refreshToken: res.data.token.refresh
+            })
+            navigate('/'); // to main page
         }).catch(err => {
             console.log(err);
+            showLoginFailToast();
+            clearAllInputs();
         });
     };
 
