@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import {
     Drawer,
     DrawerBody,
@@ -21,9 +22,23 @@ import { CloseIcon, QuestionOutlineIcon } from '@chakra-ui/icons';
 import { IoHomeOutline } from "react-icons/io5";
 import { HiOutlineUser } from "react-icons/hi2";
 import { PiHeartbeat } from "react-icons/pi";
-import { MdLogin } from "react-icons/md";
+import { MdLogin, MdLogout } from "react-icons/md";
+import UserContext from '../contexts/userContext';
 
 const DrawerMenu = ({ isOpen, onClose }) => {
+
+    // Access user context
+    const { user, setUser } = useContext(UserContext);
+
+    // log out 
+    const logOut = () => {
+        setUser({
+            ...user,
+            username: '',
+            accessToken: '',
+            refreshToken: ''
+        })
+    };
     
     return (
         <Drawer placement='left' onClose={onClose} isOpen={isOpen} size='xs'>
@@ -41,7 +56,15 @@ const DrawerMenu = ({ isOpen, onClose }) => {
                     borderRadius={8}
                     />
                     <Link as={RouterLink} to='/login'>
-                        <Text color='white' fontSize='md' fontWeight='bold' >Login First</Text>
+                        {user.accessToken !== '' ? (
+                            <Text color='white' fontSize='md' fontWeight='bold' >
+                                Hi, {user.username}!
+                            </Text>
+                        ) : (
+                            <Text color='white' fontSize='md' fontWeight='bold' >
+                                Login First
+                            </Text>
+                        )}
                     </Link>
                     <Spacer />
                     <CloseIcon color='white' boxSize={4} />
@@ -157,12 +180,21 @@ const DrawerMenu = ({ isOpen, onClose }) => {
                         <h2>
                             <AccordionButton paddingY={3}>
                                 <Box as="span" flex='1' textAlign='left'>
-                                    <Link as={RouterLink} to='/login'>
-                                        <Flex direction='row' justifyContent='left' alignItems='center' gap={2}>
-                                            <Icon as={MdLogin} boxSize={4} />
-                                            <Text>Log In</Text>
-                                        </Flex>
-                                    </Link>
+                                    { user.accessToken !== '' ? (
+                                        <Link as={RouterLink} to='/' onClick={logOut}>
+                                            <Flex direction='row' justifyContent='left' alignItems='center' gap={2}>
+                                                <Icon as={MdLogout} boxSize={4} />
+                                                <Text>Log Out</Text>
+                                            </Flex>
+                                        </Link>
+                                    ) : (
+                                        <Link as={RouterLink} to='/login'>
+                                            <Flex direction='row' justifyContent='left' alignItems='center' gap={2}>
+                                                <Icon as={MdLogin} boxSize={4} />
+                                                <Text>Log In</Text>
+                                            </Flex>
+                                        </Link>
+                                    )}
                                 </Box>
                             </AccordionButton>
                         </h2>
