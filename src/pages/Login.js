@@ -48,34 +48,48 @@ const Login = () => {
     };
 
     // Access user context
-    const { user, setUser } = useContext(UserContext);
+    const { login } = useContext(UserContext);
 
-    // login handling using proxy
-    const onConfirmLogin = () => {
-        axios({
-            method: 'post',
-            maxBodyLength: Infinity,
-            url: '/api/v1/user/auth/login',
-            headers: {
-                'Content-type': 'application/json',
-            },
-            data: { username: inputId, password: inputPwd },
-        }).then(res => {
-            console.log(res);
-            // set user context
-            setUser({
-                ...user,
-                username: res.data.user,
-                accessToken: res.data.token.access,
-                refreshToken: res.data.token.refresh
-            })
-            navigate('/'); // to main page
-        }).catch(err => {
-            console.log(err);
+    // // login handling using proxy
+    // const onConfirmLogin = () => {
+    //     axios({
+    //         method: 'post',
+    //         maxBodyLength: Infinity,
+    //         url: '/api/v1/user/auth/login',
+    //         headers: {
+    //             'Content-type': 'application/json',
+    //         },
+    //         data: { username: inputId, password: inputPwd },
+    //     }).then(res => {
+    //         console.log(res);
+    //         // set user context
+    //         setUser({
+    //             ...user,
+    //             username: res.data.user,
+    //             accessToken: res.data.token.access,
+    //             refreshToken: res.data.token.refresh
+    //         })
+    //         navigate('/'); // to main page
+    //     }).catch(err => {
+    //         console.log(err);
+    //         showLoginFailToast();
+    //         clearAllInputs();
+    //     });
+    // };
+
+    const onHandleLogin = () => {
+        // use userContext login function
+        login(inputId, inputPwd)
+        .then(accessToken => {
+            // login successful
+            navigate('/');
+        })
+        .catch(err => {
+            console.error(err);
             showLoginFailToast();
             clearAllInputs();
-        });
-    };
+        })
+    }
 
     return (
         <Flex
@@ -152,7 +166,7 @@ const Login = () => {
                             Forgot Password?
                         </Text>
                     </Flex>
-                    <Button onClick={onConfirmLogin}>
+                    <Button onClick={onHandleLogin}>
                         LOG IN
                     </Button>
                 </Flex>

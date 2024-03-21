@@ -28,17 +28,22 @@ import UserContext from '../contexts/userContext';
 const DrawerMenu = ({ isOpen, onClose }) => {
 
     // Access user context
-    const { user, setUser } = useContext(UserContext);
+    const { user, logout } = useContext(UserContext);
 
-    // log out 
-    const logOut = () => {
-        setUser({
-            ...user,
-            username: '',
-            accessToken: '',
-            refreshToken: ''
-        })
-    };
+    // // log out 
+    // const logOut = () => {
+    //     setUser({
+    //         ...user,
+    //         username: '',
+    //         accessToken: '',
+    //         refreshToken: ''
+    //     })
+    // };
+
+    // handle logout here
+    const onHandleLogout = () => {
+        logout();
+    }
     
     return (
         <Drawer placement='left' onClose={onClose} isOpen={isOpen} size='xs'>
@@ -181,7 +186,7 @@ const DrawerMenu = ({ isOpen, onClose }) => {
                             <AccordionButton paddingY={3}>
                                 <Box as="span" flex='1' textAlign='left'>
                                     { user.accessToken !== '' ? (
-                                        <Link as={RouterLink} to='/' onClick={logOut}>
+                                        <Link as={RouterLink} to='/' onClick={onHandleLogout}>
                                             <Flex direction='row' justifyContent='left' alignItems='center' gap={2}>
                                                 <Icon as={MdLogout} boxSize={4} />
                                                 <Text>Log Out</Text>
