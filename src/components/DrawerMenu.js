@@ -55,17 +55,17 @@ const DrawerMenu = ({ isOpen, onClose }) => {
                     bgColor='white' 
                     borderRadius={8}
                     />
-                    <Link as={RouterLink} to='/login'>
-                        {user.accessToken !== '' ? (
-                            <Text color='white' fontSize='md' fontWeight='bold' >
-                                Hi, {user.username}!
-                            </Text>
-                        ) : (
+                    {user.accessToken !== '' ? (
+                        <Text color='white' fontSize='md' fontWeight='bold' >
+                            Hi, {user.username}!
+                        </Text>
+                    ) : (
+                        <Link as={RouterLink} to='/login'>
                             <Text color='white' fontSize='md' fontWeight='bold' >
                                 Login First
                             </Text>
-                        )}
-                    </Link>
+                        </Link>
+                    )}
                     <Spacer />
                     <CloseIcon color='white' boxSize={4} />
                 </Flex>
