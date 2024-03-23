@@ -81,10 +81,10 @@ const RespGraph = () => {
                     direction='row'
                     justifyContent='space-around'
                     >
-                        <Button colorScheme="blue">
+                        <Button colorScheme="blue" w='150px'>
                             Start
                         </Button>
-                        <Button colorScheme="gray">
+                        <Button bgColor='darkgray' w='150px' textColor='white'>
                             Recordings
                         </Button>
                     </Flex>

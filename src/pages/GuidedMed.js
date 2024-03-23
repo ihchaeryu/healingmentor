@@ -90,7 +90,10 @@ const GuidedMed = () => {
                     </Flex>
                     <Progress value={30} />
                     <Button justifySelf='stretch' colorScheme='blue'>
-                        Write meditation report
+                        To journal for meditation!
+                    </Button>
+                    <Button justifySelf='stretch' bgColor='darkgrey' textColor='white'>
+                        View my recordings
                     </Button>
                 </Flex>
             </Flex>
