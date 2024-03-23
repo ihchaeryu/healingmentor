@@ -114,14 +114,14 @@ const DrawerMenu = ({ isOpen, onClose }) => {
                                         </Flex>
                                     </Link>
                                 </Box>
-                                <Box as="span" flex='1' textAlign='left' borderY='1px' borderColor='gray.100' p={3} paddingLeft={4}>
-                                    <Link as={RouterLink} to='/profile'> {/* link for now */}
+                                {/* <Box as="span" flex='1' textAlign='left' borderY='1px' borderColor='gray.100' p={3} paddingLeft={4}>
+                                    <Link as={RouterLink} to='/profile'> 
                                         <Flex direction='row' justifyContent='left' alignItems='center' gap={2}>
                                             <Box boxSize={4}  />
                                             <Text>Account Settings</Text>
                                         </Flex>
                                     </Link>
-                                </Box>
+                                </Box> */}
                             </Flex>
                         </AccordionPanel>
                     </AccordionItem>

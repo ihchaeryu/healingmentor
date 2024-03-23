@@ -2,7 +2,6 @@ import { React, useState, useContext, useEffect } from "react";
 import { Flex, Text, Divider, Input, InputGroup, InputRightElement, Button, Spacer, Link, Icon, } from "@chakra-ui/react";
 import { ArrowBackIcon, } from "@chakra-ui/icons";
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { useToast } from '@chakra-ui/react'
 import UserContext from '../contexts/userContext';
 import { BiShow, BiHide } from "react-icons/bi";
@@ -169,7 +168,7 @@ const Signup = () => {
                         />
                         <InputRightElement width='3rem'>
                             <Button h='1.75rem' size='sm' onClick={handlePwShowClick} variant='ghost'>
-                                { pwShow ? <Icon as={BiHide} boxSize={5}/> : <Icon as={BiShow} boxSize={5}/> }
+                                { pwShow ? <Icon as={BiShow} boxSize={5}/> : <Icon as={BiHide} boxSize={5}/> }
                             </Button>
                         </InputRightElement>
                     </InputGroup>
@@ -183,7 +182,7 @@ const Signup = () => {
                         />
                         <InputRightElement width='3rem'>
                             <Button h='1.75rem' size='sm' onClick={handlePwShowClick}>
-                                { pwShow ? <Icon as={BiHide} boxSize={5}/> : <Icon as={BiShow} boxSize={5}/> }
+                                { pwShow ? <Icon as={BiShow} boxSize={5}/> : <Icon as={BiHide} boxSize={5}/> }
                             </Button>
                         </InputRightElement>
                     </InputGroup>

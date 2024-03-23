@@ -1,10 +1,10 @@
 import { React, useState, useContext } from "react";
-import { Flex, Text, Divider, Input, InputGroup, InputRightElement, Button, Spacer, Link, } from "@chakra-ui/react";
+import { Flex, Text, Divider, Input, InputGroup, InputRightElement, Button, Spacer, Link, Icon, Checkbox } from "@chakra-ui/react";
 import { ArrowBackIcon, } from "@chakra-ui/icons";
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useToast } from '@chakra-ui/react'
-import axios from 'axios';
 import UserContext from '../contexts/userContext';
+import { BiShow, BiHide } from "react-icons/bi";
 
 const Login = () => {
 
@@ -143,9 +143,9 @@ const Login = () => {
                             value={inputPwd}
                             onChange={onChangePwd}
                         />
-                        <InputRightElement width='4.5rem'>
-                            <Button h='1.75rem' size='sm' onClick={handlePwShowClick}>
-                                {pwShow ? 'Hide' : 'Show'}
+                        <InputRightElement width='3rem'>
+                            <Button h='1.75rem' size='sm' onClick={handlePwShowClick} variant='ghost'>
+                                { pwShow ? <Icon as={BiShow} boxSize={5}/> : <Icon as={BiHide} boxSize={5}/> }
                             </Button>
                         </InputRightElement>
                     </InputGroup>
@@ -159,14 +159,14 @@ const Login = () => {
                     direction='row'
                     justifyContent='space-between'
                     >
-                        <Text fontSize='sm'>
+                        <Checkbox size='sm'>
                             Remember Me
-                        </Text>
+                        </Checkbox>
                         <Text fontSize='sm'>
                             Forgot Password?
                         </Text>
                     </Flex>
-                    <Button onClick={onHandleLogin}>
+                    <Button onClick={onHandleLogin} bgColor='black' textColor='white'>
                         LOG IN
                     </Button>
                 </Flex>
