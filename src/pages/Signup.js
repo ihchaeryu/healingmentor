@@ -1,24 +1,21 @@
 import { React, useState, useContext, useEffect } from "react";
-import { Flex, Text, Divider, Input, InputGroup, InputRightElement, Button, Spacer, Link, } from "@chakra-ui/react";
+import { Flex, Text, Divider, Input, InputGroup, InputRightElement, Button, Spacer, Link, Icon, } from "@chakra-ui/react";
 import { ArrowBackIcon, } from "@chakra-ui/icons";
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useToast } from '@chakra-ui/react'
 import UserContext from '../contexts/userContext';
+import { BiShow, BiHide } from "react-icons/bi";
 
 const Signup = () => {
 
     // input handling
     const [inputId, setInputId] = useState('');
-    const [inputEmail, setInputEmail] = useState('');
     const [inputPwd, setInputPwd] = useState('');
     const [inputPwdConfirm, setInputPwdConfirm] = useState('');
 
     const onChangeId = (e) => {
         setInputId(e.target.value);
-    };
-    const onChangeEmail = (e) => {
-        setInputEmail(e.target.value);
     };
     const onChangePwd = (e) => {
         setInputPwd(e.target.value);
@@ -30,7 +27,6 @@ const Signup = () => {
     // clear all inputs
     const clearAllInputs = () => {
         setInputId('');
-        setInputEmail('');
         setInputPwd('');
         setInputPwdConfirm('');
     };
@@ -38,10 +34,6 @@ const Signup = () => {
     // password show handling
     const [pwShow, setPwShow] = useState(false)
     const handlePwShowClick = () => setPwShow(!pwShow)
-
-    // password confirm show handling
-    const [pwConfirmShow, setPwConfirmShow] = useState(false)
-    const handlePwConfirmShowClick = () => setPwConfirmShow(!pwConfirmShow)
 
     // go back handling
     const navigate = useNavigate();
@@ -69,35 +61,34 @@ const Signup = () => {
     };
 
     // Access user context
-    const { user, setUser } = useContext(UserContext);
+    const { signup } = useContext(UserContext);
 
-    // signup request handling using proxy
-    // data doens't require email for now
-    const onConfirmSignup = () => {
-        axios({
-            method: 'post',
-            maxBodyLength: Infinity,
-            url: '/api/v1/user/auth/signup',
-            headers: {
-                'Content-type': 'application/json',
-            },
-            data: { username: inputId, password: inputPwd },
-        }).then(res => {
-            console.log(res);
-            // set user context
-            setUser({
-                ...user,
-                username: res.data.user,
-                accessToken: res.data.token.access,
-                refreshToken: res.data.token.refresh
-            })
-            navigate('/signup/success');
-        }).catch(err => {
-            console.log(err);
-            showSignupFailToast();
-            clearAllInputs();
-        });
-    };
+    // // signup request handling using proxy
+    // const onConfirmSignup = () => {
+    //     axios({
+    //         method: 'post',
+    //         maxBodyLength: Infinity,
+    //         url: '/api/v1/user/auth/signup',
+    //         headers: {
+    //             'Content-type': 'application/json',
+    //         },
+    //         data: { username: inputId, password: inputPwd },
+    //     }).then(res => {
+    //         console.log(res);
+    //         // set user context
+    //         setUser({
+    //             ...user,
+    //             username: res.data.user,
+    //             accessToken: res.data.token.access,
+    //             refreshToken: res.data.token.refresh
+    //         })
+    //         navigate('/signup/success');
+    //     }).catch(err => {
+    //         console.log(err);
+    //         showSignupFailToast();
+    //         clearAllInputs();
+    //     });
+    // };
 
     // // Log user when it changes :: for debugging
     // useEffect(() => {
@@ -105,10 +96,19 @@ const Signup = () => {
     // }, [user]);
 
     // register button clicked
-    const tryRegister = () => {
+    const handleRegister = () => {
         // check pwd consistancy
         if (inputPwd === inputPwdConfirm) {
-            onConfirmSignup();
+            signup(inputId, inputPwd)
+            .then(accTok => {
+                // signup successful
+                navigate('/signup/success');
+            })
+            .catch(err => {
+                console.error(err);
+                showSignupFailToast();
+                clearAllInputs();
+            })
         } else {
             clearAllInputs();
             showPwdUnmatchToast();
@@ -159,11 +159,6 @@ const Signup = () => {
                     value={inputId}
                     onChange={onChangeId}
                     />
-                    <Input 
-                    placeholder='Email' 
-                    value={inputEmail}
-                    onChange={onChangeEmail}
-                    />
                     <InputGroup size='md'>
                         <Input
                             pr='4.5rem'
@@ -172,23 +167,23 @@ const Signup = () => {
                             value={inputPwd}
                             onChange={onChangePwd}
                         />
-                        <InputRightElement width='4.5rem'>
-                            <Button h='1.75rem' size='sm' onClick={handlePwShowClick}>
-                                {pwShow ? 'Hide' : 'Show'}
+                        <InputRightElement width='3rem'>
+                            <Button h='1.75rem' size='sm' onClick={handlePwShowClick} variant='ghost'>
+                                { pwShow ? <Icon as={BiHide} boxSize={5}/> : <Icon as={BiShow} boxSize={5}/> }
                             </Button>
                         </InputRightElement>
                     </InputGroup>
                     <InputGroup size='md'>
                         <Input
                             pr='4.5rem'
-                            type={pwConfirmShow ? 'text' : 'password'}
-                            placeholder='Confirm password'
+                            type={pwShow ? 'text' : 'password'}
+                            placeholder='Confirm Password'
                             value={inputPwdConfirm}
                             onChange={onChangePwdConfirm}
                         />
-                        <InputRightElement width='4.5rem'>
-                            <Button h='1.75rem' size='sm' onClick={handlePwConfirmShowClick}>
-                                {pwConfirmShow ? 'Hide' : 'Show'}
+                        <InputRightElement width='3rem'>
+                            <Button h='1.75rem' size='sm' onClick={handlePwShowClick}>
+                                { pwShow ? <Icon as={BiHide} boxSize={5}/> : <Icon as={BiShow} boxSize={5}/> }
                             </Button>
                         </InputRightElement>
                     </InputGroup>
@@ -198,7 +193,7 @@ const Signup = () => {
                 direction='column'
                 gap={5}
                 >
-                    <Button onClick={tryRegister}>
+                    <Button onClick={handleRegister}>
                         REGISTER
                     </Button>
                 </Flex>

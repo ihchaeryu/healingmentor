@@ -15,6 +15,32 @@ export const UserProvider = ({ children }) => {
         // Add more user information as needed
     });
 
+    // handle sign up
+    const signup = (id, pwd) => {
+        return axios({
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: '/api/v1/user/auth/signup',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            data: { username: id, password: pwd },
+        }).then(res => {
+            console.log(res);
+            // set user context
+            setUser({
+                ...user,
+                username: res.data.user,
+                accessToken: res.data.token.access,
+                refreshToken: res.data.token.refresh
+            })
+            return res.data.token.access;
+        }).catch(err => {
+            console.log(err);
+            throw new Error('Signup failed');
+        });
+    };
+
     // handle login 
     const login = (id, pwd) => {
         return axios({
@@ -51,7 +77,7 @@ export const UserProvider = ({ children }) => {
     };
 
     return (
-        <UserContext.Provider value={{ user, setUser, login, logout }}>
+        <UserContext.Provider value={{ user, setUser, login, logout, signup }}>
             {children}
         </UserContext.Provider>
     );
