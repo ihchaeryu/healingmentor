@@ -1,10 +1,11 @@
-import { React, useState, useContext } from "react";
+import { React, useState, useContext, useEffect } from "react";
 import { Flex, Text, Divider, Input, InputGroup, InputRightElement, Button, Spacer, Link, Icon, Checkbox } from "@chakra-ui/react";
 import { ArrowBackIcon, } from "@chakra-ui/icons";
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useToast } from '@chakra-ui/react'
 import UserContext from '../contexts/userContext';
 import { BiShow, BiHide } from "react-icons/bi";
+import axios from "axios";
 
 const Login = () => {
 
@@ -48,7 +49,7 @@ const Login = () => {
     };
 
     // Access user context
-    const { login } = useContext(UserContext);
+    const { user, setUser, login } = useContext(UserContext);
 
     // // login handling using proxy
     // const onConfirmLogin = () => {
@@ -80,7 +81,7 @@ const Login = () => {
     const onHandleLogin = () => {
         // use userContext login function
         login(inputId, inputPwd)
-        .then(accessToken => {
+        .then(name => {
             // login successful
             navigate('/');
         })

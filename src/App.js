@@ -14,8 +14,10 @@ import GuidedMed from './pages/GuidedMed';
 import RespGraph from './pages/RespGraph';
 import SustAttention from './pages/SustAttention';
 import SignupDone from './pages/SignupDone';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
+
   return (
     <div className="App">
       <ChakraProvider theme={theme}>
@@ -28,9 +30,30 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/signup/success" element={<SignupDone />} />
-            <Route path="/meditation/gm" element={<GuidedMed />} />
-            <Route path="/meditation/rg" element={<RespGraph />} />
-            <Route path="/meditation/sa" element={<SustAttention />} />
+            <Route 
+              path="/meditation/gm" 
+              element={
+                <PrivateRoute>
+                  <GuidedMed />
+                </PrivateRoute>
+              } 
+            />
+            <Route 
+              path="/meditation/rg" 
+              element={
+                <PrivateRoute>
+                  <RespGraph />
+                </PrivateRoute>
+              } 
+            />
+            <Route 
+              path="/meditation/sa" 
+              element={
+                <PrivateRoute>
+                  <SustAttention />
+                </PrivateRoute>
+              } 
+            />
           </Routes>
         </BrowserRouter>
       </ChakraProvider>

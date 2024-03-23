@@ -42,7 +42,7 @@ export const UserProvider = ({ children }) => {
     };
 
     // handle login 
-    const login = (id, pwd) => {
+    const login = async (id, pwd) => {
         return axios({
             method: 'post',
             maxBodyLength: Infinity,
@@ -54,13 +54,14 @@ export const UserProvider = ({ children }) => {
         }).then(res => {
             console.log(res);
             // set user context
+            // set user takes time!!!
             setUser({
                 ...user,
                 username: res.data.user,
                 accessToken: res.data.token.access,
                 refreshToken: res.data.token.refresh
             })
-            return res.data.token.access;
+            return res.data.user;
         }).catch(err => {
             console.log(err);
             throw new Error('Login failed');
